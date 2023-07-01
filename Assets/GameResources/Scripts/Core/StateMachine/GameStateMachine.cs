@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GameResources.Scripts.Core.StateMachine.States;
+using GameResources.Scripts.Services;
 using GameResources.Scripts.UI;
 
 namespace GameResources.Scripts.Core.StateMachine
@@ -13,11 +14,11 @@ namespace GameResources.Scripts.Core.StateMachine
         private readonly Dictionary<Type, IExitableState> states;
         private IExitableState activeState;
 
-        public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain)
+        public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, AllServices allSercives)
         {
             states = new Dictionary<Type, IExitableState>()
             {
-                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
+                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, allSercives),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain),
                 [typeof(GameLoopState)] = new GameLoopState(this)
             };

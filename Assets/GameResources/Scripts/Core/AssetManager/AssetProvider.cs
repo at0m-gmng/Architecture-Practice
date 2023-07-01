@@ -1,8 +1,9 @@
+using GameResources.Scripts.Services;
 using UnityEngine;
 
 namespace GameResources.Scripts.Core.AssetManager
 {
-    public class AssetProvider : IAssetProvider
+    public class AssetProvider :  IAssetProvider
     {
         public GameObject Instantiate(string path)
         {

@@ -20,7 +20,7 @@ namespace GameResources.Scripts.Input
         private IInputService inputService;
         private Camera camera;
 
-        private void Awake() => inputService = Game.InputService;
+        private void Awake() => inputService = AllServices.Container.Single<IInputService>();
 
         private void Start() => camera = Camera.main;
 
