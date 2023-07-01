@@ -4,18 +4,19 @@ using UnityEngine;
 
 namespace GameResources.Scripts.Core.StateMachine.States
 {
+    using GameFactory;
+    
     /// <summary>
     /// Состояние загрузки уровня
     /// </summary>
     public class LoadLevelState: IPayloadedState<string>
     {
-        private const string PREFAB_HUD = "Prefabs/UI/HUD";
-        private const string PREFAB_CHARACTER = "Prefabs/Characters/Character_Explorer_Male_01";
         private const string INITIAL_POINT = "InitialPoint";
         
         private readonly GameStateMachine stateMachine;
         private readonly SceneLoader sceneLoader;
         private readonly LoadingCurtain loadingCurtain;
+        private readonly IGameFactory gameFactory;
 
         public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain)
         {
@@ -32,28 +33,14 @@ namespace GameResources.Scripts.Core.StateMachine.States
 
         private void OnLoaded()
         {
-            GameObject initPoint = GameObject.FindWithTag(INITIAL_POINT);
-            
-            GameObject hero = Instantiate(PREFAB_CHARACTER, at: initPoint.transform.position);
-            Instantiate(PREFAB_HUD);
+            GameObject hero = gameFactory.CreateHero(GameObject.FindWithTag(INITIAL_POINT));
+            gameFactory.CreateHUD();
             
             CameraFollow(hero);
             
             stateMachine.Enter<GameLoopState>();
         }
 
-        private GameObject Instantiate(string path)
-        {
-            var prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab);
-        }
-        
-        private GameObject Instantiate(string path, Vector3 at)
-        {
-            var prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab, at, Quaternion.identity);
-        }
-        
         private void CameraFollow(GameObject hero) => Camera.main.GetComponent<CharacterCameraFollow>().Follow(hero);
 
         public void Exit()
