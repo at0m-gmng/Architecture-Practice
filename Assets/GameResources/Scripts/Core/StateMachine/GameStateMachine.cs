@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GameResources.Scripts.Core.GameFactory;
 using GameResources.Scripts.Core.StateMachine.States;
 using GameResources.Scripts.Services;
 using GameResources.Scripts.UI;
@@ -19,7 +20,7 @@ namespace GameResources.Scripts.Core.StateMachine
             states = new Dictionary<Type, IExitableState>()
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, allSercives),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain, allSercives.Single<IGameFactory>()),
                 [typeof(GameLoopState)] = new GameLoopState(this)
             };
         } 

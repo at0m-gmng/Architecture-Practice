@@ -22,13 +22,11 @@ namespace GameResources.Scripts.Core.StateMachine.States
             this.stateMachine = stateMachine;
             this.sceneLoader = sceneLoader;
             services = allSercives;
+            
+            RegisterServices();
         }
         
-        public void Enter()
-        {
-            RegisterServices();
-            sceneLoader.Load(InitialScene, onLoad: EnterLoadLevel);
-        }
+        public void Enter() => sceneLoader.Load(InitialScene, onLoad: EnterLoadLevel);
 
         public void Exit()
         {
