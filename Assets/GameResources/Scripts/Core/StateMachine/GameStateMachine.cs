@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using GameResources.Scripts.Core.GameFactory;
 using GameResources.Scripts.Core.StateMachine.States;
 using GameResources.Scripts.Services;
+using GameResources.Scripts.Services.Data;
+using GameResources.Scripts.Services.PersistentProgress;
 using GameResources.Scripts.UI;
 
 namespace GameResources.Scripts.Core.StateMachine
@@ -21,6 +23,7 @@ namespace GameResources.Scripts.Core.StateMachine
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, allSercives),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain, allSercives.Single<IGameFactory>()),
+                [typeof(LoadProgressState)] = new LoadProgressState(this, allSercives.Single<IPersistentProgressService>(), allSercives.Single<ISaveLoadService>()),
                 [typeof(GameLoopState)] = new GameLoopState(this)
             };
         } 

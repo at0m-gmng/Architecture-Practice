@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameResources.Scripts.Services
+namespace GameResources.Scripts.Services.Inputs
 {
     /// <summary>
     /// Класс реализующий Input на mobile платформах

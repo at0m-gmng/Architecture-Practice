@@ -1,13 +1,17 @@
 using GameResources.Scripts.Core;
+using GameResources.Scripts.Core.Data;
 using GameResources.Scripts.Services;
+using GameResources.Scripts.Services.Inputs;
+using GameResources.Scripts.Services.PersistentProgress;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace GameResources.Scripts.Input
 {
     /// <summary>
     /// Класс отвечающий за передвижение персонажа
     /// </summary>
-    public class CharacterMovement : MonoBehaviour
+    public class CharacterMovement : MonoBehaviour, ISaveProgress
     {
         private const float Epsilon = 0.001f;
 
@@ -41,5 +45,30 @@ namespace GameResources.Scripts.Input
             characterController.Move(movementSpeed * movementVector * Time.deltaTime );
 
         }
+
+        public void UpdateProgress(PlayerProgress progress) 
+            => progress.WorldData.PositionOnLevel = new PositionOnLevel(GetCurrentLevelName(), transform.position.AsVectorData());
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            if (GetCurrentLevelName() == progress.WorldData.PositionOnLevel.Level)
+            {
+                var savedPosition = progress.WorldData.PositionOnLevel.Position;
+                if (savedPosition != null)
+                {
+                    Warp(savedPosition);   
+                }
+            }
+
+        }
+
+        private void Warp(Vector3Data savedPosition)
+        {
+            characterController.enabled = false;
+            transform.position = savedPosition.AsUnityVector();
+            characterController.enabled = true;
+        }
+
+        private string GetCurrentLevelName() => SceneManager.GetActiveScene().name;
     }
 }

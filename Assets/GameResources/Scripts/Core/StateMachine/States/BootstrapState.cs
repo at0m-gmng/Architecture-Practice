@@ -1,5 +1,8 @@
 using GameResources.Scripts.Core.AssetManager;
 using GameResources.Scripts.Services;
+using GameResources.Scripts.Services.Data;
+using GameResources.Scripts.Services.Inputs;
+using GameResources.Scripts.Services.PersistentProgress;
 using UnityEngine;
 
 namespace GameResources.Scripts.Core.StateMachine.States
@@ -33,13 +36,15 @@ namespace GameResources.Scripts.Core.StateMachine.States
             
         }
 
-        private void EnterLoadLevel() => stateMachine.Enter<LoadLevelState, string>(TEST_SCENE);
+        private void EnterLoadLevel() => stateMachine.Enter<LoadProgressState>();
 
 
         private void RegisterServices()
         {
             services.RegisterSingle<IInputService>(InputService());
             services.RegisterSingle<IAssetProvider>(new AssetProvider());
+            services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
+            services.RegisterSingle<ISaveLoadService>(new SaveLoadService());
             services.RegisterSingle<IGameFactory>(new GameFactory(services.Single<IAssetProvider>()));
         }
 
