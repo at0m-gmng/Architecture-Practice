@@ -30,7 +30,7 @@ namespace GameResources.Scripts.Core.StateMachine.States
         }
 
         private void LoadProgressOrInitNew() 
-            => progressService.Progress = saveLoadService.LoadProgress()?? NewProgress();
+            => progressService.Progress = saveLoadService.LoadProgress() ?? NewProgress();
 
         private PlayerProgress NewProgress() => new PlayerProgress(TEST_SCENE);
     }

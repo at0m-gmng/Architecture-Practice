@@ -44,8 +44,8 @@ namespace GameResources.Scripts.Core.StateMachine.States
             services.RegisterSingle<IInputService>(InputService());
             services.RegisterSingle<IAssetProvider>(new AssetProvider());
             services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
-            services.RegisterSingle<ISaveLoadService>(new SaveLoadService());
             services.RegisterSingle<IGameFactory>(new GameFactory(services.Single<IAssetProvider>()));
+            services.RegisterSingle<ISaveLoadService>(new SaveLoadService(services.Single<IPersistentProgressService>(), services.Single<IGameFactory>()));
         }
 
         private static IInputService InputService()

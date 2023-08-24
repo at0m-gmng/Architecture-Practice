@@ -1,13 +1,11 @@
-using GameResources.Scripts.Core;
-using GameResources.Scripts.Core.Data;
-using GameResources.Scripts.Services;
-using GameResources.Scripts.Services.Inputs;
-using GameResources.Scripts.Services.PersistentProgress;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-
 namespace GameResources.Scripts.Input
 {
+    using Core.Data;
+    using Services;
+    using Services.Inputs;
+    using Services.PersistentProgress;
+    using UnityEngine;
+    using UnityEngine.SceneManagement;
     /// <summary>
     /// Класс отвечающий за передвижение персонажа
     /// </summary>
@@ -47,13 +45,14 @@ namespace GameResources.Scripts.Input
         }
 
         public void UpdateProgress(PlayerProgress progress) 
-            => progress.WorldData.PositionOnLevel = new PositionOnLevel(GetCurrentLevelName(), transform.position.AsVectorData());
+            => progress.WorldData.PositionOnLevel = new PositionOnLevel(GetCurrentLevelName(), 
+                                                                        transform.position.AsVectorData());
 
         public void LoadProgress(PlayerProgress progress)
         {
             if (GetCurrentLevelName() == progress.WorldData.PositionOnLevel.Level)
             {
-                var savedPosition = progress.WorldData.PositionOnLevel.Position;
+                Vector3Data savedPosition = progress.WorldData.PositionOnLevel.Position;
                 if (savedPosition != null)
                 {
                     Warp(savedPosition);   

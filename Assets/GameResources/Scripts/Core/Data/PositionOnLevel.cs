@@ -5,8 +5,6 @@ namespace GameResources.Scripts.Core.Data
     [Serializable]
     public class PositionOnLevel
     {
-        public string Level;
-
         public PositionOnLevel(string level, Vector3Data position)
         {
             Level = level;
@@ -18,6 +16,8 @@ namespace GameResources.Scripts.Core.Data
             Level = level;
         }
 
-        public Vector3Data Position { get; set; }   
+        public string Level;
+        
+        public Vector3Data Position;
     }
 }

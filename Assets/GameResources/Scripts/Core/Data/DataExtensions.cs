@@ -9,5 +9,12 @@ namespace GameResources.Scripts.Core.Data
         public static Vector3 AsUnityVector(this Vector3Data vector3Data) => new Vector3(vector3Data.X, vector3Data.Y, vector3Data.Z);
         
         public static T ToDeserialized<T>(this string progress) => JsonUtility.FromJson<T>(progress);
+        public static string ToJson(this object obj) => JsonUtility.ToJson(obj);
+
+        public static Vector3 AddY(this Vector3 basePosition, float targetOffset)
+        {
+            basePosition.y += targetOffset;
+            return basePosition;
+        }
     }
 }

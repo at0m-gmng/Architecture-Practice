@@ -1,5 +1,8 @@
+using System;
+
 namespace GameResources.Scripts.Core.Data
 {
+    [Serializable]
     public class Vector3Data
     {
         public float X;
