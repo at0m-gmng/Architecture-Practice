@@ -1,8 +1,6 @@
 using GameResources.Scripts.Core.StateMachine.States;
 using GameResources.Scripts.UI;
-using Newtonsoft.Json.Serialization;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace GameResources.Scripts.Core
 {
